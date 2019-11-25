@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
 
 namespace WorkerServiceTemplate
 {
@@ -6,7 +8,16 @@ namespace WorkerServiceTemplate
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            CreateHostBuilder(args).Build().Run();
+        }
+
+        static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder()
+                .ConfigureServices((context, services)=> 
+                {
+                    services.AddHostedService<Worker>();
+                });
         }
     }
 }
